@@ -9,8 +9,6 @@ const option_list = document.querySelector(".option_list");
 const time_line = document.querySelector("header .time_line");
 const timeText = document.querySelector(".timer .time_left_txt");
 const timeCount = document.querySelector(".timer .timer_sec");
-const canvas = document.querySelector("#my-canvas");
-
 
 
 // if startQuiz button clicked
@@ -33,6 +31,7 @@ continue_btn.onclick = ()=>{
 }
 
 let timeValue =  15;
+
 let que_count = 0;
 let que_numb = 1;
 let userScore = 0;
@@ -40,20 +39,28 @@ let counter;
 let counterLine;
 let widthValue = 0;
 
-
-// getting questions and options from array
+   //var randomQuestion = questions[Math.floor(Math.random()*questions.length)].question
+   // getting questions and options from array
   function showQuetions(index){
+     const que_text = document.querySelector(".que_text");
 
     // const Questions= await fetch('https://quizapi.io/api/v1/questions?apiKey=ox4wjSbWTT0IOY1LCSiZLDAh2RmDjFdqVipAINuH');
     // console.log(await Questions.text());
-    const que_text = document.querySelector(".que_text");
-
+    // let randomQuestion = Math.floor(Math.random()*questions.length);
+    //que_count=randomQuestion;
     //creating a new span and div tag for question and option and passing the value using array index
-    let que_tag = '<span>'+ questions[index].numb + ". " + questions[index].question +'</span>';
-    let option_tag = '<div class="option"><span>'+ questions[index].options[0] +'</span></div>'
-    + '<div class="option"><span>'+ questions[index].options[1] +'</span></div>'
-    + '<div class="option"><span>'+ questions[index].options[2] +'</span></div>'
-    + '<div class="option"><span>'+ questions[index].options[3] +'</span></div>';
+    // let que_tag = '<span>'+ questions[randomQuestion].question +'</span>';
+    // let option_tag = '<div class="option"><span>'+ questions[randomQuestion].options[0] +'</span></div>'
+    // + '<div class="option"><span>'+ questions[randomQuestion].options[1] +'</span></div>'
+    // + '<div class="option"><span>'+ questions[randomQuestion].options[2] +'</span></div>'
+    // + '<div class="option"><span>'+ questions[randomQuestion].options[3] +'</span></div>';
+
+     let que_tag = '<span>'+ questions[index].question +'</span>';
+     let option_tag = '<div class="option"><span>'+ questions[index].options[0] +'</span></div>'
+     + '<div class="option"><span>'+ questions[index].options[1] +'</span></div>'
+     + '<div class="option"><span>'+ questions[index].options[2] +'</span></div>'
+     + '<div class="option"><span>'+ questions[index].options[3] +'</span></div>';
+
     que_text.innerHTML = que_tag; //adding new span tag inside que_tag
     option_list.innerHTML = option_tag; //adding new div tag inside option_tag
     
@@ -72,7 +79,6 @@ let crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
 //if user clicked on option
 function optionSelected(answer){
     clearInterval(counter); //clear counter
-    clearInterval(counterLine); //clear counterLine
     let userAns = answer.textContent; //getting user selected option
     let correcAns
     // set onclick attribute to all available options
@@ -104,7 +110,7 @@ function optionSelected(answer){
     next_btn.classList.add("show"); //show the next button if user selected any option
 }
 
-function queCounter(index){
+ function queCounter(index){
     //creating a new span tag and passing the question number and total question
     let totalQueCounTag = '<span><p>'+ index +'</p> of <p>'+ questions.length +'</p> Questions</span>';
     bottom_ques_counter.innerHTML = totalQueCounTag;  //adding new span tag inside bottom_ques_counter
@@ -168,7 +174,6 @@ function showResult(){
         let scoreTag = '<span>and congrats! , You got <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
         scoreText.innerHTML = scoreTag;  //adding new span tag inside score_Text
         canvas.classList.add("show-canvas");   
-        audio.play();
         audio.loop = true;
     }
     else if(userScore > 1){ // if user scored more than 1
